@@ -1,5 +1,6 @@
 # environment
-venv/
+/venv/
+.venv
 
 # testing
 .pytest_cache

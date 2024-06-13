@@ -27,7 +27,7 @@ def extract_first_digit(line: str) -> str:
     for i in range(n):
         if line[i].isnumeric():
             return line[i]
-        elif isinstance(line[i], str) and check_for_num_text(True, line[i:]) is not None:
+        elif check_for_num_text(True, line[i:]) is not None:
             return check_for_num_text(True, line[i:])
 
 
@@ -38,11 +38,10 @@ def extract_last_digit(line: str) -> str:
     n = len(line)
 
     for i in range(n, 0, -1):
-        print(f"Currently on character: {line[i - 1]}")
-        if not line[i - 1].isnumeric() and check_for_num_text(False, line[:i]) is not None:
-            return check_for_num_text(False, line[:i])
-        elif line[i - 1].isnumeric():
+        if line[i - 1].isnumeric():
             return line[i - 1]
+        elif check_for_num_text(False, line[:i]) is not None:
+            return check_for_num_text(False, line[:i])
 
 
 def check_for_num_text(direction: bool, line_extract: str) -> str:
@@ -58,7 +57,9 @@ def check_for_num_text(direction: bool, line_extract: str) -> str:
 
     if not direction:
 
-        for character in line_extract[::-1]:
+        line_extract_rev = line_extract[::-1]
+
+        for character in line_extract_rev:
 
             possible_number_characters = [a[::-1][line_character_count]
                                           for a in NUMBER_TEXT_TO_NUMERIC.keys()
@@ -66,13 +67,15 @@ def check_for_num_text(direction: bool, line_extract: str) -> str:
 
             if character in possible_number_characters:
                 line_character_count += 1
-                result += character
+                result = character + result
 
             else:
                 return None
 
-            if result[::-1] in NUMBER_TEXT_TO_NUMERIC.keys():
-                return NUMBER_TEXT_TO_NUMERIC.get(result[::-1])
+            result_int = NUMBER_TEXT_TO_NUMERIC.get(result)
+
+            if result_int is not None:
+                return result_int
 
     else:
 
