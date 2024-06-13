@@ -1,0 +1,11 @@
+# environment
+venv/
+
+# testing
+.pytest_cache
+__pycache__
+/coverage
+.coverage
+
+# sample
+/sample.txt
