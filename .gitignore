@@ -1,5 +1,5 @@
 # environment
-/venv/
+venv
 .venv
 
 # testing
@@ -9,4 +9,4 @@ __pycache__
 .coverage
 
 # sample
-/sample.txt
+sample.txt
